@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>El tiempo en España</title>
+	<link rel="stylesheet" type="text/css" href="css\style2.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<body >
+    <div id="coso">
+        <div id="header1">
+            <div class="grid">
+        
+                        <div class="row" size="12">
+                    
+                            <div  class=" col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                                <div class="hover-underline-animation" class="tarjeta"><a href="Calculadora.html">Calculadora</a></div>
+                            </div>
+                
+                            <div  class=" col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+                                <div class="hover-underline-animation" class="tarjeta"><a href="JSON.html">Json</a></div>
+                            </div>
+                        </div>
+             </div>  
+        </div>
+    <h1>EL TIEMPO EN ESPAÑA</h1>
+        <div id="mi-tabla" >
+    
+        </div>
+    
+        <script >
+    
+            function crearTabla(tiempos) {
+                    let html = "<table class='tabla'><thead><tr><th>Id</th><th>Nombre</th><th>Codigo de la Autonomia</th><th>Comunidad y Ciudad </th><th>Capital de provincia </th></tr></thead><tbody>";
+                        tiempos.forEach((tiempo) => {
+                        html += `<tr><td>${tiempo.CODPROV}</td><td>${tiempo.NOMBRE_PROVINCIA}</td><td>${tiempo.CODAUTON}</td><td>${tiempo.COMUNIDAD_CIUDAD_AUTONOMA}</td><td>${tiempo.CAPITAL_PROVINCIA}</td></tr>`;
+                    });
+                    html += "</tbody></table>";
+                    return html;
+            }
+    
+            fetch('https://www.el-tiempo.net/api/json/v1/provincias')
+            .then(res => res.json())
+            .then(data => {
+                const tiempos = data;
+                const tablaHtml = crearTabla(tiempos);
+                document.getElementById("mi-tabla").innerHTML = tablaHtml;
+            })
+            .catch(err => console.error(err));
+    
+        </script>
+
+
+    </div>
+
+    
+</body>
+</html>
